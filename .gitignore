@@ -1,0 +1,9 @@
+# Ignore mac file
+.DS_store
+
+# Ignore notes file
+web-scrape-notes.py
+
+# Ignore folders
+learning_exercises
+pre_git_versions
