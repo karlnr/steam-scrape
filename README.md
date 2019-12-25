@@ -4,6 +4,7 @@
 First project in python & web-scraping
 
 Scraping performed with Beautiful Soup per Automate the Boring Stuff readings
+Prints to python console
 
 ## Details
 First attempt scrapes from a pre-defined url inserted into the code
