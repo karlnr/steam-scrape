@@ -10,9 +10,7 @@ def test_arduino():
     ser = serial.Serial('/dev/cu.usbmodem14401', 9600, timeout=5)  # open arduino port
     print(ser.name)
     time.sleep(3)  # arduino resets when init connection via python
-    ser.write(b'x')
-    time.sleep(3)
-    ser.write(b'y')
+    ser.write(b'abcd')
     ser.close()
 
 
