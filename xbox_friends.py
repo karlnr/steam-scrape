@@ -1,7 +1,19 @@
+import requests
+import serial
+import time
 
 x_auth = '6670f76a5481bf8de6dce36b92020b9e8c3da340'  # api authentication key
 headers = {'X-AUTH': x_auth}
 api_prefix = 'https://xapi.us/v2'
+
+def test_arduino():
+    ser = serial.Serial('/dev/cu.usbmodem14401', 9600, timeout=5)  # open arduino port
+    print(ser.name)
+    time.sleep(3)  # arduino resets when init connection via python
+    ser.write(b'x')
+    time.sleep(3)
+    ser.write(b'y')
+    ser.close()
 
 
 def main():
@@ -51,3 +63,6 @@ def append_presence_json(friends_json):
         d['status'] = presence_json['state']
     return friends_json
 
+if __name__ == "__main__":
+    # main()
+    test_arduino()
