@@ -7,10 +7,26 @@ headers = {'X-AUTH': x_auth}
 api_prefix = 'https://xapi.us/v2'
 
 def test_arduino():
-    ser = serial.Serial('/dev/cu.usbmodem14401', 9600, timeout=5)  # open arduino port
+    ser = serial.Serial('/dev/cu.usbmodem14401', 9600)  # open arduino port
     print(ser.name)
     time.sleep(3)  # arduino resets when init connection via python
-    ser.write(b'abcd')
+
+    msg1 = 'abcdefgh'
+    msg2 = '0123456789123456'
+    msg3 = 'lmnop'
+    lst = [msg1, msg2, msg3]
+
+    TERM = '\r\n'
+
+    for msg in lst:
+        ser.write(msg.encode())  # variable to bytes rather than b'some message'
+        chars_sent = len(msg)
+
+        exp_response_bytes = len(str(chars_sent)) + len(TERM)
+        response_b = ser.read(exp_response_bytes)  # arduino println terms with '\r\n'
+        print(response_b)
+        print(int(response_b) == int(chars_sent))  # int cast drops TERM
+
     ser.close()
 
 
