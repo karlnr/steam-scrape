@@ -14,14 +14,17 @@ def test_arduino():
     msg1 = 'abcdefgh'
     msg2 = '0123456789123456'
     msg3 = 'lmnop'
-    lst = [msg1, msg2, msg3]
+    msg4 = 'test longer than 16 characters1234567890'
+    print("ms4 is " + str(len(msg4)))
+    # lst = [msg1, msg2, msg3, msg4]
+    lst = [msg4]
 
     TERM = '\r\n'
 
     for msg in lst:
         ser.write(msg.encode())  # variable to bytes rather than b'some message'
+        # todo: maybe arduino write() for value without conversion to len/string
         chars_sent = len(msg)
-
         exp_response_bytes = len(str(chars_sent)) + len(TERM)
         response_b = ser.read(exp_response_bytes)  # arduino println terms with '\r\n'
         print(response_b)

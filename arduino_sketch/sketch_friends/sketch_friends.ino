@@ -37,28 +37,34 @@ void serialEvent() {
 
     lcd.clear();
     lcd.print("serialEvent...");
+    delay(150);
     
-    // number of bytes in serial buffer; max 64 bytes
     bytesAvail = Serial.available();
-    lcd.setCursor(0,1);
-    lcd.print("bytes avail: ");  
     
     int idx = 0;
     bytesRecv = 0;
     while (bytesAvail > 0) {
 
-        lcd.setCursor(15,2);
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("bytes avail: ");
         lcd.print(bytesAvail);
-        delay(50);
+        delay(150);
 
         recvData[idx] = Serial.read();
-        bytesAvail = Serial.available();
         idx++;
+        bytesRecv = idx;
+        
+        lcd.setCursor(0,1);
+        lcd.print("bytes recv: ");
+        lcd.print(bytesRecv);
+        delay(150);
+        
+        bytesAvail = Serial.available();
 
         // term the string
         if (bytesAvail == 0) {
             recvData[idx] = '\0';
-            bytesRecv = idx;
             newData = true;
         }
     }
@@ -82,10 +88,10 @@ void printToLCD() {
     if (len < 16) {
         for (int i = 0; i < (16-len); i++){
             lcd.print(" ");
-            delay(150);
+            delay(200);
         }
-    }
-
+    }    
+    
     sendBytesRecvd();
         newData = false;
 }
